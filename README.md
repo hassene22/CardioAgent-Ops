@@ -1,9 +1,5 @@
-# WAV Analyser
+# CardioAgent-Ops
 
-A small web application that lets a user choose one `.wav` file from their
-device. The selected file is previewed in the browser; no dataset is scanned
-or loaded automatically. The **Analyse** button is reserved for the future
-analysis implementation.
 
 ## Run locally
 
