@@ -13,7 +13,7 @@ From the project root:
 python app.py
 ```
 
-Open <http://localhost:8000>, click the file picker, and choose a WAV file.
+Open <http://localhost:8050>, click the file picker, and choose a WAV file.
 
 ## Run with Docker
 
@@ -23,4 +23,4 @@ The image contains only the application and does not need the dataset:
 docker compose up --build
 ```
 
-Then open <http://localhost:8000>.
+Then open <http://localhost:8050>.

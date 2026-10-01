@@ -34,7 +34,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 def main() -> None:
     host = os.environ.get("HOST", "0.0.0.0")
-    port = int(os.environ.get("PORT", "8000"))
+    port = int(os.environ.get("PORT", "8050"))
     print(f"WAV analyser listening on http://{host}:{port}")
     ThreadingHTTPServer((host, port), RequestHandler).serve_forever()
 
