@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WAV Analyser</title>
+  <style>
+    :root { color-scheme: dark; --bg: #10141c; --panel: #192231; --line: #2d3b50; --text: #e8eef7; --muted: #9aabc0; --accent: #66b3ff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 15px system-ui, sans-serif; }
+    main { max-width: 1200px; margin: 0 auto; padding: 36px 20px; }
+    h1 { margin: 0 0 8px; font-size: 32px; }
+    .subtitle, .muted { color: var(--muted); }
+    .upload, .preview { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-top: 24px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    input, button { border: 1px solid var(--line); border-radius: 7px; padding: 11px 12px; font: inherit; }
+    input { background: #101722; color: var(--text); }
+    button { background: var(--accent); color: #07111d; cursor: pointer; font-weight: 700; }
+    button:hover { filter: brightness(1.1); }
+    button:disabled { cursor: not-allowed; opacity: .45; }
+    audio { width: 100%; margin-top: 10px; }
+    .error { color: #ff9e9e; }
+    @media (max-width: 760px) { .actions { align-items: stretch; flex-direction: column; } button, input { width: 100%; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>WAV Analyser</h1>
+  <div class="subtitle">Choose one WAV file from your device to get started.</div>
+  <section class="upload">
+    <div class="actions">
+      <input id="wav-file" type="file" accept=".wav,audio/wav">
+      <button id="analyse" type="button" disabled>Analyse</button>
+    </div>
+    <p id="selection-status" class="muted">No WAV file selected.</p>
+    <audio id="audio-preview" controls hidden></audio>
+  </section>
+</main>
+<script>
+  const fileInput = document.querySelector("#wav-file");
+  const analyseButton = document.querySelector("#analyse");
+  const selectionStatus = document.querySelector("#selection-status");
+  const audioPreview = document.querySelector("#audio-preview");
+  let selectedFileUrl;
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (selectedFileUrl) URL.revokeObjectURL(selectedFileUrl);
+    selectedFileUrl = undefined;
+    audioPreview.hidden = true;
+    audioPreview.removeAttribute("src");
+
+    if (!file) {
+      analyseButton.disabled = true;
+      selectionStatus.textContent = "No WAV file selected.";
+      return;
+    }
+    if (!file.name.toLowerCase().endsWith(".wav")) {
+      fileInput.value = "";
+      analyseButton.disabled = true;
+      selectionStatus.textContent = "Please choose a .wav file.";
+      selectionStatus.className = "error";
+      return;
+    }
+
+    selectionStatus.className = "muted";
+    selectionStatus.textContent = `Selected: ${file.name}`;
+    analyseButton.disabled = false;
+    selectedFileUrl = URL.createObjectURL(file);
+    audioPreview.src = selectedFileUrl;
+    audioPreview.hidden = false;
+  });
+
+  analyseButton.addEventListener("click", () => {
+    selectionStatus.className = "muted";
+    selectionStatus.textContent = "Analysis is not implemented yet.";
+  });
+</script>
+</body>
+</html>

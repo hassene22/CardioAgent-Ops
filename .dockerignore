@@ -1,0 +1,5 @@
+__MACOSX
+New folder (4)
+*.zip
+__pycache__
+*.pyc
